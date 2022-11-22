@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
+    Shoting _refShoting;
     public GameObject _thirdPersonCamera;
 
     [Header("Movement")]
@@ -66,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        _refShoting = GetComponent<Shoting>();
         _thirdPersonCamera.GetComponent<ThirdPersonCamera>();
         canJump = true;
         rb = GetComponent<Rigidbody>();
@@ -126,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Aiming
-        if (Input.GetKeyDown(aimingKey))
+        if (Input.GetKeyDown(aimingKey) && !_refShoting.reloading)
         {
             _thirdPersonCamera.GetComponent<ThirdPersonCamera>().currentStyle = ThirdPersonCamera.CameraStyle.Aiming;
         }

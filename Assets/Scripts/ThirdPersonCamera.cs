@@ -14,6 +14,8 @@ public class ThirdPersonCamera : MonoBehaviour
     public GameObject refPlayer;
 
     public float rotationspeed;
+    public int FielofViewAiming;
+    public int FielofViewCombat;
     public CinemachineFreeLook refCinemachine;
     public enum CameraStyle
     {
@@ -59,7 +61,12 @@ public class ThirdPersonCamera : MonoBehaviour
             orientation.forward = dirToCombatLookAt.normalized;
 
             playerObj.forward = dirToCombatLookAt.normalized;
-            refCinemachine.m_Lens.FieldOfView = 60;
+
+            if (refCinemachine.m_Lens.FieldOfView <= FielofViewCombat)
+            {
+                refCinemachine.m_Lens.FieldOfView = refCinemachine.m_Lens.FieldOfView + (Time.deltaTime * 2 * 100);
+            }
+
             refPlayer.GetComponent<PlayerMovement>().moveSpeed = refPlayer.GetComponent<PlayerMovement>().walkSpeed;
         }
         else if (currentStyle == CameraStyle.Aiming)
@@ -68,7 +75,11 @@ public class ThirdPersonCamera : MonoBehaviour
             orientation.forward = dirToCombatLookAt.normalized;
 
             playerObj.forward = dirToCombatLookAt.normalized;
-            refCinemachine.m_Lens.FieldOfView = 20;
+            if (refCinemachine.m_Lens.FieldOfView >= FielofViewAiming)
+            { 
+                refCinemachine.m_Lens.FieldOfView = refCinemachine.m_Lens.FieldOfView - (Time.deltaTime * 2 * 100);
+                
+            }
             refPlayer.GetComponent<PlayerMovement>().moveSpeed = refPlayer.GetComponent<PlayerMovement>().aimingSpeed;
         }
     }
