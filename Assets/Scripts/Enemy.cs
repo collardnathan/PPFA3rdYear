@@ -24,6 +24,13 @@ public class Enemy : MonoBehaviour
         if (other.tag == ("BulletGravity"))
         {
             print("Gravity");
+            GameManager.Instance.gravity = 5000;
+            GameManager.Instance.ApplyForceGravity(this.gameObject);
         }
+    }
+
+    private void FixedUpdate()
+    {
+        
     }
 }

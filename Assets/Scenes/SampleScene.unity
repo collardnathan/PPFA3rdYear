@@ -2143,7 +2143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e28a97834de37b6409caf312470a9a51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: {x: 0, y: 0, z: 0}
+  gravity: 0
   myObjects: {fileID: 0}
   rb: {fileID: 0}
 --- !u!1 &1592714136
@@ -3022,6 +3022,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1859877180336546657, guid: ce5ab67f2c4d27e46948ce505e670691, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1859877180336546663, guid: ce5ab67f2c4d27e46948ce505e670691, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1859877182205628672, guid: ce5ab67f2c4d27e46948ce505e670691, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -3032,11 +3040,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1859877182205628672, guid: ce5ab67f2c4d27e46948ce505e670691, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.7641287
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 1859877182205628672, guid: ce5ab67f2c4d27e46948ce505e670691, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.05702528
+      value: -0.52
       objectReference: {fileID: 0}
     - target: {fileID: 1859877182205628672, guid: ce5ab67f2c4d27e46948ce505e670691, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3069,6 +3077,10 @@ PrefabInstance:
     - target: {fileID: 1859877182205628675, guid: ce5ab67f2c4d27e46948ce505e670691, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8235474133568246324, guid: ce5ab67f2c4d27e46948ce505e670691, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce5ab67f2c4d27e46948ce505e670691, type: 3}
