@@ -137,6 +137,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _thirdPersonCamera.GetComponent<ThirdPersonCamera>().currentStyle = ThirdPersonCamera.CameraStyle.Combat;
         }
+
     }
 
 

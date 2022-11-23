@@ -29,15 +29,14 @@ public class Shoting : MonoBehaviour
     public bool shooting, readyToShoot, reloading;
 
     int bulletsLeft, bulletsShot;
-    
 
-    private enum Bullets { Basic, Gravity }
-    private Bullets currentBullet;
+    public GameObject[] Bullets;    
+    int currentBul = 0;
     private bool canSwitch = true;
     private float timerSwitch = 1f;
     public float timerOverload = 10f;
 
-    public KeyCode switchBullet = KeyCode.Tab;
+    private KeyCode switchBullet = KeyCode.Tab;
 
     private void Start()
     {
@@ -67,16 +66,12 @@ public class Shoting : MonoBehaviour
     {
         if (Input.GetKeyDown(switchBullet) && canSwitch)
         {
-            if (currentBullet == Bullets.Basic)
+            currentBul++;
+            print(Bullets.Length);
+            if (currentBul == Bullets.Length)
             {
-                currentBullet = Bullets.Gravity;
+                currentBul = 0;
             }
-
-            else
-            {
-                currentBullet = Bullets.Basic;
-            }
-            canSwitch = false;
         }
 
         if (allowButtonHold) shooting = Input.GetMouseButton(0);
@@ -127,6 +122,8 @@ public class Shoting : MonoBehaviour
         float y = Random.Range(-spread, spread);
 
         Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, 0);
+
+        bullet = Bullets[currentBul];
         GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
         currentBullet.transform.forward = directionWithSpread.normalized;
 
@@ -161,9 +158,8 @@ public class Shoting : MonoBehaviour
         bulletsLeft = magazineSize;
         reloading = false;
     }
-    private void CooldownSwitch(bool getStarted = false)
-    {
-        getStarted = true;
+    private void CooldownSwitch()
+    {        
         if (timerSwitch > 0)
         {
             timerSwitch -= (Time.deltaTime); 
