@@ -25,19 +25,18 @@ public class GameManager : MonoBehaviour
     }
     public void ApplyForceGravity(GameObject currentActor)
     {
-        GameObject[] allActors = Object.FindObjectsOfType<GameObject>();
-        foreach (GameObject all in allActors)
-        {
-            currentActor = all;
+        //GameObject[] allActors = Object.FindObjectsOfType<GameObject>();
+        //foreach (GameObject all in allActors)
+        //{
+        //    currentActor = all;
             
-            if (currentActor.GetComponent<Rigidbody>() != null)
-            {
-                currentActor.GetComponent<Rigidbody>().useGravity = false;
-                currentActor.GetComponent<Rigidbody>().AddForce(currentActor.transform.up * gravity ,  ForceMode.Force);
-            }
+        //    if (currentActor.GetComponent<Rigidbody>() != null)
+        //    {
+        //        currentActor.GetComponent<Rigidbody>().useGravity = false;
+        //        currentActor.GetComponent<Rigidbody>().AddForce(currentActor.transform.up * gravity ,  ForceMode.Force);
+        //    }            
             
-            
-        }
+        //}
 
     }
 }

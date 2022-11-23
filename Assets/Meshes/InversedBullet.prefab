@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 2428038721859518037}
   - component: {fileID: 338046488443797204}
   m_Layer: 0
-  m_Name: ClassicBullet
-  m_TagString: Bullet
+  m_Name: InversedBullet
+  m_TagString: BulletInversed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,10 +74,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5331163
+  m_Radius: 0.50265163
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0.024264352, y: 0, z: 0.0035486184}
+  m_Center: {x: 0, y: 4.865367e-18, z: -0.0026516619}
 --- !u!33 &2428038721859518037
 MeshFilter:
   m_ObjectHideFlags: 0

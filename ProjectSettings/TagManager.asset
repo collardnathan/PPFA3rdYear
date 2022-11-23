@@ -7,6 +7,7 @@ TagManager:
   - Wall
   - Bullet
   - BulletGravity
+  - BulletInversed
   layers:
   - Default
   - TransparentFX
