@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float _health = 100f;
+    public float _currentHealth = 0f;
+    public float _maxHealth = 100f;
 
     [SerializeField]
     private Rigidbody rb;
@@ -12,6 +13,10 @@ public class Enemy : MonoBehaviour
     public enum GravityMode { Normal, G0, gravityInversed }
     private GravityMode currentGravity;
 
+    private void Start()
+    {
+        _currentHealth = _maxHealth;
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -19,9 +24,9 @@ public class Enemy : MonoBehaviour
         if (other.tag == ("Bullet"))
         {
             print("Bullet");
-            _health -= 10f;
+            _currentHealth -= 10f;
             Object.Destroy(other.gameObject);
-            if (_health <= 0)
+            if (_currentHealth <= 0)
             {
                 Object.Destroy(gameObject);
             }
@@ -31,15 +36,27 @@ public class Enemy : MonoBehaviour
         {
             print("Gravity");
             this.GetComponent<Rigidbody>().AddForce(this.transform.up * 200f, ForceMode.Force);
-            this.GetComponent<Rigidbody>().AddForce(this.transform.right * 100f, ForceMode.Force);
             SetGravity(GravityMode.G0);
+            this.GetComponent<Rigidbody>().transform.Rotate(0, 1f, 1f);
 
         }
 
         if (other.tag == ("BulletInversed"))
         {
-            print("Inversed");
-            SetGravity(GravityMode.gravityInversed);
+            if (currentGravity == GravityMode.gravityInversed)
+            {
+                SetGravity(GravityMode.Normal);
+
+            }
+
+            else if (currentGravity == GravityMode.G0)
+            {
+                SetGravity(GravityMode.Normal);
+            }
+            else
+            {
+                SetGravity(GravityMode.gravityInversed);
+            }
         }
     }
 
