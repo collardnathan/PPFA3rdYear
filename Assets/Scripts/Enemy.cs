@@ -20,7 +20,7 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-          
+        print("oui");
         if (other.tag == ("Bullet"))
         {
             print("Bullet");
@@ -34,6 +34,7 @@ public class Enemy : MonoBehaviour
 
         if (other.tag == ("BulletGravity"))
         {
+            Object.Destroy(other.gameObject);
             print("Gravity");
             this.GetComponent<Rigidbody>().AddForce(this.transform.up * 200f, ForceMode.Force);
             SetGravity(GravityMode.G0);
@@ -57,6 +58,7 @@ public class Enemy : MonoBehaviour
             {
                 SetGravity(GravityMode.gravityInversed);
             }
+            Object.Destroy(other.gameObject);
         }
     }
 

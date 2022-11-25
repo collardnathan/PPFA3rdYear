@@ -9,19 +9,10 @@ public class Bullet : MonoBehaviour
     {
         Object.Destroy(gameObject, 2.5f);
     }
-    private void OnTriggerEnter(Collider other)
+
+    private void FixedUpdate()
     {
-        if (other.gameObject.tag == ("Wall"))
-        {
-            Object.Destroy(other.gameObject);
-            Object.Destroy(gameObject);
-            print(other);
-        }
-
-        if (other.gameObject.tag == ("Enemy"))
-        {
-
-        }
+        print(GetComponent<CapsuleCollider>().transform.position);
+        print(this.gameObject.transform.position);
     }
-
 }

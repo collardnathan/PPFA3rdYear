@@ -32,11 +32,9 @@ public class Shoting : MonoBehaviour
 
     public GameObject[] Bullets;    
     int currentBul = 0;
-    private bool canSwitch = true;
-    private float timerSwitch = 1f;
     public float timerOverload = 10f;
 
-    private KeyCode switchBullet = KeyCode.Tab;
+    private KeyCode switchBullet = KeyCode.A;
 
     private void Start()
     {
@@ -50,24 +48,21 @@ public class Shoting : MonoBehaviour
         reloading = false;
     }
 
+    private void FixedUpdate()
+    {        
+        MyInput();
+    }
+
     private void Update()
     {
-        
-        MyInput();
-
-        if (canSwitch == false)
-        {
-            CooldownSwitch();
-        }
-
+     
     }
 
     private void MyInput()
     {
-        if (Input.GetKeyDown(switchBullet) && canSwitch)
+        if (Input.GetKeyDown(switchBullet))
         {
             currentBul++;
-            print(Bullets.Length);
             if (currentBul == Bullets.Length)
             {
                 currentBul = 0;
@@ -89,8 +84,7 @@ public class Shoting : MonoBehaviour
         {
             Reload();
             _refCamera.GetComponent<ThirdPersonCamera>().currentStyle = ThirdPersonCamera.CameraStyle.Combat;
-        }
-        
+        }       
         
 
         if (readyToShoot && shooting && !reloading && bulletsLeft > 0 )
@@ -125,7 +119,8 @@ public class Shoting : MonoBehaviour
 
         bullet = Bullets[currentBul];
         GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
-        currentBullet.transform.forward = directionWithSpread.normalized;
+        //currentBullet.transform.forward = directionWithSpread.normalized;
+        currentBullet.GetComponent<Rigidbody>().velocity = directionWithoutSpread.normalized;
 
         currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
         currentBullet.GetComponent<Rigidbody>().AddForce(tpsCam.transform.up * upwardForce, ForceMode.Impulse);
@@ -158,18 +153,4 @@ public class Shoting : MonoBehaviour
         bulletsLeft = magazineSize;
         reloading = false;
     }
-    private void CooldownSwitch()
-    {        
-        if (timerSwitch > 0)
-        {
-            timerSwitch -= (Time.deltaTime); 
-        }
-        else
-        {
-            canSwitch = true;
-            timerSwitch = 1f;
-            return;
-        }
-    }
-
 }
