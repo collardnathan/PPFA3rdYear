@@ -12,7 +12,6 @@ public class Bullet : MonoBehaviour
 
     private void FixedUpdate()
     {
-        print(GetComponent<CapsuleCollider>().transform.position);
-        print(this.gameObject.transform.position);
+
     }
 }

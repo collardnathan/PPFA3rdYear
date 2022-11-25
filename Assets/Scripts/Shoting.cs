@@ -28,10 +28,10 @@ public class Shoting : MonoBehaviour
     [SerializeField]
     public bool shooting, readyToShoot, reloading;
 
-    int bulletsLeft, bulletsShot;
+    public int bulletsLeft, bulletsShot;
 
     public GameObject[] Bullets;    
-    int currentBul = 0;
+    public int currentBul = 0;
     public float timerOverload = 10f;
 
     private KeyCode switchBullet = KeyCode.A;
@@ -49,12 +49,13 @@ public class Shoting : MonoBehaviour
     }
 
     private void FixedUpdate()
-    {        
-        MyInput();
+    {
+        InputFire();
     }
 
     private void Update()
     {
+        MyInput();
      
     }
 
@@ -68,10 +69,6 @@ public class Shoting : MonoBehaviour
                 currentBul = 0;
             }
         }
-
-        if (allowButtonHold) shooting = Input.GetMouseButton(0);
-        else shooting = Input.GetMouseButtonDown(0);
-
         //Reload
         if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading)
         {
@@ -79,20 +76,7 @@ public class Shoting : MonoBehaviour
             Reload();
             print(reloading);
         }
-        //Reload when you try to fire without ammo
-        if (readyToShoot && shooting && !reloading && bulletsLeft <= 0)
-        {
-            Reload();
-            _refCamera.GetComponent<ThirdPersonCamera>().currentStyle = ThirdPersonCamera.CameraStyle.Combat;
-        }       
-        
 
-        if (readyToShoot && shooting && !reloading && bulletsLeft > 0 )
-        {
-            //Set bullets shot to 0
-            bulletsShot = 0;
-            Shooting();
-        }
     }
 
     private void Shooting()
@@ -152,5 +136,26 @@ public class Shoting : MonoBehaviour
     {
         bulletsLeft = magazineSize;
         reloading = false;
+    }
+
+    private void InputFire()
+    {
+        if (allowButtonHold) shooting = Input.GetMouseButton(0);
+        else shooting = Input.GetMouseButtonDown(0);
+
+        //Reload when you try to fire without ammo
+        if (readyToShoot && shooting && !reloading && bulletsLeft <= 0)
+        {
+            Reload();
+            _refCamera.GetComponent<ThirdPersonCamera>().currentStyle = ThirdPersonCamera.CameraStyle.Combat;
+        }
+
+
+        if (readyToShoot && shooting && !reloading && bulletsLeft > 0)
+        {
+            //Set bullets shot to 0
+            bulletsShot = 0;
+            Shooting();
+        }
     }
 }
