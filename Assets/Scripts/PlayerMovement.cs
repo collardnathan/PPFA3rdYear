@@ -8,10 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject _thirdPersonCamera;
 
     [Header("Movement")]
-
-    [SerializeField]
     public float moveSpeed;
-
     public float walkSpeed;
     public float sprintSpeed;
     public float aimingSpeed;
@@ -49,6 +46,8 @@ public class PlayerMovement : MonoBehaviour
 
     float horizontalInput;
     float verticalInput;
+    public float _maxHealth;
+    public float _health;
 
     Vector3 moveDirection;
 

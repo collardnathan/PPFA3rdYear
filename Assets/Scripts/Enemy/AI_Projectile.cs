@@ -6,19 +6,32 @@ public class AI_Projectile : MonoBehaviour
 {
     Vector3 targetPosition;
     public float speed;
+    PlayerMovement player;
+
+    private void Awake()
+    {
+        targetPosition = FindObjectOfType<PlayerMovement>().transform.position;
+        
+    }
 
     private void Start()
     {
-        targetPosition = FindObjectOfType<PlayerMovement>().transform.position;
+        Object.Destroy(gameObject, 1f);
     }
 
     private void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);        
+    }
 
-        if (transform.position == targetPosition)
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
         {
-            Destroy(gameObject);
+            player = player.GetComponent<PlayerMovement>();            
+            player.GetComponent<PlayerMovement>()._health -= 10;
+            print(player.GetComponent<PlayerMovement>()._health);
+            Object.Destroy(this.gameObject);
         }
     }
 }

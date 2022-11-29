@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public int scoreDead;
+    public int scoreHit;
     public float _currentHealth = 0f;
     public float _maxHealth = 100f;
 
@@ -11,7 +13,7 @@ public class Enemy : MonoBehaviour
     private Rigidbody rb;
 
     public enum GravityMode { Normal, G0, gravityInversed }
-    private GravityMode currentGravity;
+    public GravityMode currentGravity;
 
     private void Start()
     {
@@ -23,11 +25,13 @@ public class Enemy : MonoBehaviour
         print("oui");
         if (other.tag == ("Bullet"))
         {
+            GameManager._Instance.AddScore(scoreHit);            
             Object.Destroy(other.gameObject);
             print("Bullet");
             _currentHealth -= 10f;
             if (_currentHealth <= 0)
             {
+                GameManager._Instance.AddScore(scoreDead);
                 Object.Destroy(gameObject);
             }
         }
@@ -69,7 +73,7 @@ public class Enemy : MonoBehaviour
         {
             case GravityMode.Normal:
                 Vector3 velocityNormal = rb.velocity;
-                velocityNormal += Physics.gravity.normalized * Time.deltaTime;
+                velocityNormal += Physics.gravity.normalized * Time.deltaTime;                
                 rb.velocity = velocityNormal;
                 break;
             case GravityMode.G0:

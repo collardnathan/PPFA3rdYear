@@ -25,9 +25,4 @@ public class AI_MoveToPlayer : MonoBehaviour
             // Attack the player
         }
     }
-
-    void CheckThePlayerDistance()
-    {
-        //player.transform.position = Vector3()
-    }
 }

@@ -23,16 +23,19 @@ public class Shoting : MonoBehaviour
     public float shootForce, upwardForce;
     public float timeBetweenShooting, spread, reloadTime, timeBetweenShots;
     public int magazineSize, bulletsPerTap;
+    public int[] Magazine;
+    private int currentMagazine;
+    private int currentActualBullets;
     public bool allowButtonHold;
 
     [SerializeField]
     public bool shooting, readyToShoot, reloading;
 
+    public int[] bullets;
     public int bulletsLeft, bulletsShot;
 
     public GameObject[] Bullets;    
     public int currentBul = 0;
-    public float timerOverload = 10f;
 
     private KeyCode switchBullet = KeyCode.A;
 
@@ -43,7 +46,7 @@ public class Shoting : MonoBehaviour
     private void Awake()
     {
         // Check if Magazine is full
-        bulletsLeft = magazineSize;
+        bulletsLeft = bullets[currentActualBullets];
         readyToShoot = true;
         reloading = false;
     }
@@ -55,6 +58,8 @@ public class Shoting : MonoBehaviour
 
     private void Update()
     {
+        ChangeAmmo();
+        CheckCameraType();
         MyInput();
      
     }
@@ -63,11 +68,24 @@ public class Shoting : MonoBehaviour
     {
         if (Input.GetKeyDown(switchBullet))
         {
+            currentMagazine++;
+
+            if (currentMagazine == Magazine.Length)
+            {
+                currentMagazine = 0;
+            }
             currentBul++;
             if (currentBul == Bullets.Length)
             {
                 currentBul = 0;
             }
+            currentActualBullets++;
+            if (currentActualBullets == bullets.Length)
+            {
+                currentActualBullets = 0;
+            }
+
+            bulletsLeft = bullets[currentActualBullets];
         }
         //Reload
         if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading)
@@ -134,7 +152,8 @@ public class Shoting : MonoBehaviour
 
     private void ReloadFinished()
     {
-        bulletsLeft = magazineSize;
+        Magazine[currentMagazine] -= (bullets[currentActualBullets] - bulletsLeft);
+        bulletsLeft = bullets[currentActualBullets];
         reloading = false;
     }
 
@@ -157,5 +176,22 @@ public class Shoting : MonoBehaviour
             bulletsShot = 0;
             Shooting();
         }
+    }
+
+    private void CheckCameraType()
+    {
+        if (_refCamera.GetComponent<ThirdPersonCamera>().currentStyle == ThirdPersonCamera.CameraStyle.Combat)
+        {
+            spread = 0.75f;
+        }
+        else
+        {
+            spread = 0f;
+        }
+    }
+
+    private void ChangeAmmo()
+    {
+        magazineSize = Magazine[currentMagazine];
     }
 }

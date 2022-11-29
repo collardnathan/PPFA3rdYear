@@ -9,13 +9,14 @@ public class AI_Patrol : MonoBehaviour
     public float waitTime;
     int currentPointIndex;
 
-    bool once;
+    bool once = false;
 
     private void Update()
     {
         if (transform.position != patrolPoints[currentPointIndex].position)
         {
             transform.position = Vector3.MoveTowards(transform.position, patrolPoints[currentPointIndex].position, speed * Time.deltaTime);
+            print("j'essaye");
         }
         else
         {
