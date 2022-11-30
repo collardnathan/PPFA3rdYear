@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class AmmoDisplay : MonoBehaviour
 {
-    public Text ammoDisplay, magazineDisplay, typeOfBullet, reloadingDisplay;
+    public Text ammoDisplay, magazineDisplay, typeOfBullet, reloadingDisplay, scoring;
     public RawImage basic, inversed, G0;
+    public Slider Health;
     [SerializeField] GameObject player;
 
 
@@ -17,6 +18,8 @@ public class AmmoDisplay : MonoBehaviour
 
     private void Update()
     {
+        Health.value = player.GetComponent<PlayerMovement>()._health / player.GetComponent<PlayerMovement>()._maxHealth;
+        scoring.text = ("Audience Score : " + (Manager._Instance.Score));
         ammoDisplay.text = player.GetComponent<Shoting>().bulletsLeft.ToString();
         magazineDisplay.text = player.GetComponent<Shoting>().magazineSize.ToString();
 

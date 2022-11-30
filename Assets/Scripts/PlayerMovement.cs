@@ -63,6 +63,11 @@ public class PlayerMovement : MonoBehaviour
         air
     }
 
+    private void Awake()
+    {
+        _health = _maxHealth;
+    }
+
     private void Start()
     {
         _refShoting = GetComponent<Shoting>();

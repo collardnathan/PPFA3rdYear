@@ -37,7 +37,7 @@ public class Shoting : MonoBehaviour
     public GameObject[] Bullets;    
     public int currentBul = 0;
 
-    private KeyCode switchBullet = KeyCode.A;
+    private KeyCode switchBullet = KeyCode.Tab;
 
     private void Start()
     {

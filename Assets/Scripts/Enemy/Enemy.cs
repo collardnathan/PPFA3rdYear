@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public int scoreHit;
     public float _currentHealth = 0f;
     public float _maxHealth = 100f;
+    private bool rotationDone = false;
 
     [SerializeField]
     private Rigidbody rb;
@@ -25,19 +26,21 @@ public class Enemy : MonoBehaviour
         print("oui");
         if (other.tag == ("Bullet"))
         {
-            GameManager._Instance.AddScore(scoreHit);            
+            rotationDone = false;
+            Manager._Instance.AddScore(scoreHit);            
             Object.Destroy(other.gameObject);
             print("Bullet");
             _currentHealth -= 10f;
             if (_currentHealth <= 0)
             {
-                GameManager._Instance.AddScore(scoreDead);
+                Manager._Instance.AddScore(scoreDead);
                 Object.Destroy(gameObject);
             }
         }
 
         if (other.tag == ("BulletGravity"))
         {
+            rotationDone = false;
             Object.Destroy(other.gameObject);
             print("Gravity");
             this.GetComponent<Rigidbody>().AddForce(this.transform.up * 200f, ForceMode.Force);
@@ -50,6 +53,11 @@ public class Enemy : MonoBehaviour
         {
             if (currentGravity == GravityMode.gravityInversed)
             {
+                if (rotationDone != true)
+                {
+                    this.transform.rotation = Quaternion.Slerp (this.transform.rotation, Quaternion.Euler(0, 0, 0), 0.8f);
+                    rotationDone = true;
+                }
                 Object.Destroy(other.gameObject);
                 SetGravity(GravityMode.Normal);
             }

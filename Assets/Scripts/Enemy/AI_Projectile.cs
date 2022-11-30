@@ -7,6 +7,7 @@ public class AI_Projectile : MonoBehaviour
     Vector3 targetPosition;
     public float speed;
     PlayerMovement player;
+    public int _damages = 10;
 
     private void Awake()
     {
@@ -28,9 +29,7 @@ public class AI_Projectile : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            player = player.GetComponent<PlayerMovement>();            
-            player.GetComponent<PlayerMovement>()._health -= 10;
-            print(player.GetComponent<PlayerMovement>()._health);
+            Manager._Instance.HealthPlayer(_damages);
             Object.Destroy(this.gameObject);
         }
     }
