@@ -10,6 +10,10 @@ public class Manager : MonoBehaviour
 
     public PlayerMovement player;
 
+    public bool Dead = false;
+
+    public bool Win = false;
+
     private void Update()
     {
         print(Score);
@@ -36,5 +40,15 @@ public class Manager : MonoBehaviour
         }
         player.GetComponent<PlayerMovement>()._health -= damages;
         print(player.GetComponent<PlayerMovement>()._health);
+    }
+
+    public void Death()
+    {
+        Dead = true;
+    }
+
+    public void Winner()
+    {
+        Win = true;
     }
 }

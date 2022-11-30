@@ -29,6 +29,10 @@ public class AI_Projectile : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            if (Manager._Instance.player._health <=0)
+            {
+                Manager._Instance.Death();
+            }
             Manager._Instance.HealthPlayer(_damages);
             Object.Destroy(this.gameObject);
         }

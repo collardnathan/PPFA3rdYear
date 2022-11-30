@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class AmmoDisplay : MonoBehaviour
 {
+    public Image EndPlayLosing, EndPlayWinning;
     public Text ammoDisplay, magazineDisplay, typeOfBullet, reloadingDisplay, scoring;
     public RawImage basic, inversed, G0;
     public Slider Health;
     [SerializeField] GameObject player;
-
 
     private void Start()
     {
@@ -18,6 +19,14 @@ public class AmmoDisplay : MonoBehaviour
 
     private void Update()
     {
+        if (Manager._Instance.Dead == true)
+        {
+            EndPlayLosing.gameObject.SetActive(true);
+        }
+        else if (Manager._Instance.Win == true)
+        {
+            EndPlayWinning.gameObject.SetActive(true);
+        }
         Health.value = player.GetComponent<PlayerMovement>()._health / player.GetComponent<PlayerMovement>()._maxHealth;
         scoring.text = ("Audience Score : " + (Manager._Instance.Score));
         ammoDisplay.text = player.GetComponent<Shoting>().bulletsLeft.ToString();
