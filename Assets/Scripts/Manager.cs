@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
+    public float enemyCount;
+
     public static Manager _Instance;
 
     public int Score;
@@ -17,6 +19,7 @@ public class Manager : MonoBehaviour
     private void Update()
     {
         print(Score);
+        CountEnemies();
     }
     private void Awake()
     {
@@ -50,5 +53,12 @@ public class Manager : MonoBehaviour
     public void Winner()
     {
         Win = true;
+    }
+
+    public void CountEnemies()
+    {
+        Enemy[] components = GameObject.FindObjectsOfType<Enemy>();
+        enemyCount = components.Length;
+        
     }
 }

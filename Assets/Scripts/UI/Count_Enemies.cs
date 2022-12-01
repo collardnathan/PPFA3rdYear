@@ -11,14 +11,11 @@ public class Count_Enemies : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Enemy[] components = GameObject.FindObjectsOfType<Enemy>();
-        enemyCount = components.Length;
-        textEnemyCount.text = ("" + enemyCount);
     }
 
     // Update is called once per frame
     void Update()
-    {
-        
+    {        
+        textEnemyCount.text = ("" + (Manager._Instance.enemyCount + 1));        
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class AmmoDisplay : MonoBehaviour
+public class HUD : MonoBehaviour
 {
     public Image EndPlayLosing, EndPlayWinning;
     public Text ammoDisplay, magazineDisplay, typeOfBullet, reloadingDisplay, scoring;
