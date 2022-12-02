@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 8235474133568246324}
   - component: {fileID: 8267537155791641357}
   - component: {fileID: 3085748406107573118}
+  - component: {fileID: 7657080581285392212}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -176,6 +177,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7002cb8fdefbfce40bf2ba3d885bfbc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreDead: 0
+  scoreHit: 0
   _currentHealth: 0
   _maxHealth: 100
   rb: {fileID: 8235474133568246324}
@@ -194,6 +197,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 5472824122748445599}
   slider: {fileID: 6147310401943426742}
+--- !u!114 &7657080581285392212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859877182205628675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbe81b0a298c1db4c960ec43506e3925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 8267537155791641357}
+  projectile: {fileID: 4602737630878682886, guid: 58b9f2cef6fa4fe47bdd3e3c5c3483ed, type: 3}
+  patrolPoints: []
+  muzzle: {fileID: 8864850965726109644}
+  player: {fileID: 0}
+  timeBetweenShots: 0.2
+  minimumAttackDistance: 15
+  minimumPatrolingDistance: 18
+  waitTime: 2
+  _speed: 5
+  currentPointIndex: 0
 --- !u!1 &2375808501550867775
 GameObject:
   m_ObjectHideFlags: 0
