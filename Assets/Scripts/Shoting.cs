@@ -23,18 +23,19 @@ public class Shoting : MonoBehaviour
     public float shootForce, upwardForce;
     public float timeBetweenShooting, spread, reloadTime, timeBetweenShots;
     public int magazineSize, bulletsPerTap;
+    public int[] Magazine;
+    private int currentMagazine;
+    private int currentActualBullets;
     public bool allowButtonHold;
 
     [SerializeField]
     public bool shooting, readyToShoot, reloading;
 
-    int bulletsLeft, bulletsShot;
+    public int[] bullets;
+    public int bulletsLeft, bulletsShot;
 
     public GameObject[] Bullets;    
-    int currentBul = 0;
-    private bool canSwitch = true;
-    private float timerSwitch = 1f;
-    public float timerOverload = 10f;
+    public int currentBul = 0;
 
     private KeyCode switchBullet = KeyCode.Tab;
 
@@ -45,38 +46,47 @@ public class Shoting : MonoBehaviour
     private void Awake()
     {
         // Check if Magazine is full
-        bulletsLeft = magazineSize;
+        bulletsLeft = bullets[currentActualBullets];
         readyToShoot = true;
         reloading = false;
     }
 
+    private void FixedUpdate()
+    {
+        InputFire();
+    }
+
     private void Update()
     {
-        
+        ChangeAmmo();
+        CheckCameraType();
         MyInput();
-
-        if (canSwitch == false)
-        {
-            CooldownSwitch();
-        }
-
+     
     }
 
     private void MyInput()
     {
-        if (Input.GetKeyDown(switchBullet) && canSwitch)
+        if (Input.GetKeyDown(switchBullet))
         {
+            currentMagazine++;
+
+            if (currentMagazine == Magazine.Length)
+            {
+                currentMagazine = 0;
+            }
             currentBul++;
-            print(Bullets.Length);
             if (currentBul == Bullets.Length)
             {
                 currentBul = 0;
             }
+            currentActualBullets++;
+            if (currentActualBullets == bullets.Length)
+            {
+                currentActualBullets = 0;
+            }
+
+            bulletsLeft = bullets[currentActualBullets];
         }
-
-        if (allowButtonHold) shooting = Input.GetMouseButton(0);
-        else shooting = Input.GetMouseButtonDown(0);
-
         //Reload
         if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading)
         {
@@ -84,21 +94,7 @@ public class Shoting : MonoBehaviour
             Reload();
             print(reloading);
         }
-        //Reload when you try to fire without ammo
-        if (readyToShoot && shooting && !reloading && bulletsLeft <= 0)
-        {
-            Reload();
-            _refCamera.GetComponent<ThirdPersonCamera>().currentStyle = ThirdPersonCamera.CameraStyle.Combat;
-        }
-        
-        
 
-        if (readyToShoot && shooting && !reloading && bulletsLeft > 0 )
-        {
-            //Set bullets shot to 0
-            bulletsShot = 0;
-            Shooting();
-        }
     }
 
     private void Shooting()
@@ -125,7 +121,8 @@ public class Shoting : MonoBehaviour
 
         bullet = Bullets[currentBul];
         GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
-        currentBullet.transform.forward = directionWithSpread.normalized;
+        //currentBullet.transform.forward = directionWithSpread.normalized;
+        currentBullet.GetComponent<Rigidbody>().velocity = directionWithoutSpread.normalized;
 
         currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
         currentBullet.GetComponent<Rigidbody>().AddForce(tpsCam.transform.up * upwardForce, ForceMode.Impulse);
@@ -155,21 +152,46 @@ public class Shoting : MonoBehaviour
 
     private void ReloadFinished()
     {
-        bulletsLeft = magazineSize;
+        Magazine[currentMagazine] -= (bullets[currentActualBullets] - bulletsLeft);
+        bulletsLeft = bullets[currentActualBullets];
         reloading = false;
     }
-    private void CooldownSwitch()
-    {        
-        if (timerSwitch > 0)
+
+    private void InputFire()
+    {
+        if (allowButtonHold) shooting = Input.GetMouseButton(0);
+        else shooting = Input.GetMouseButtonDown(0);
+
+        //Reload when you try to fire without ammo
+        if (readyToShoot && shooting && !reloading && bulletsLeft <= 0)
         {
-            timerSwitch -= (Time.deltaTime); 
+            Reload();
+            _refCamera.GetComponent<ThirdPersonCamera>().currentStyle = ThirdPersonCamera.CameraStyle.Combat;
         }
-        else
+
+
+        if (readyToShoot && shooting && !reloading && bulletsLeft > 0)
         {
-            canSwitch = true;
-            timerSwitch = 1f;
-            return;
+            //Set bullets shot to 0
+            bulletsShot = 0;
+            Shooting();
         }
     }
 
+    private void CheckCameraType()
+    {
+        if (_refCamera.GetComponent<ThirdPersonCamera>().currentStyle == ThirdPersonCamera.CameraStyle.Combat)
+        {
+            spread = 0.75f;
+        }
+        else
+        {
+            spread = 0f;
+        }
+    }
+
+    private void ChangeAmmo()
+    {
+        magazineSize = Magazine[currentMagazine];
+    }
 }

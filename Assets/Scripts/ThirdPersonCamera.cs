@@ -46,7 +46,6 @@ public class ThirdPersonCamera : MonoBehaviour
         orientation.forward = viewdir.normalized;
 
         // Rotate Player Object
-
         
             if (currentStyle == CameraStyle.Combat)
         {
