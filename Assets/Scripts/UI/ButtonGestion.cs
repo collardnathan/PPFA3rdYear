@@ -8,11 +8,21 @@ public class ButtonGestion : MonoBehaviour
 {
     public void RestartButton()
     {
-        SceneManager.LoadScene("LD_Scene");
+        SceneManager.LoadScene("SampleScene");
     }
 
     public void MainMenuButton()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void StartButton()
+    {
+        SceneManager.LoadScene("SampleScene");
+    }
+
+    public void QuitButton()
+    {
+        Application.Quit();
     }
 }

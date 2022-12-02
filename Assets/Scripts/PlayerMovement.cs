@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
-{
+{    
     Shoting _refShoting;
     public GameObject _thirdPersonCamera;
 

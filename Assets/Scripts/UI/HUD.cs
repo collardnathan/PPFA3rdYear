@@ -22,10 +22,14 @@ public class HUD : MonoBehaviour
         if (Manager._Instance.Dead == true)
         {
             EndPlayLosing.gameObject.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
         else if (Manager._Instance.Win == true)
         {
             EndPlayWinning.gameObject.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
         Health.value = player.GetComponent<PlayerMovement>()._health / player.GetComponent<PlayerMovement>()._maxHealth;
         scoring.text = ("Audience Score : " + (Manager._Instance.Score));

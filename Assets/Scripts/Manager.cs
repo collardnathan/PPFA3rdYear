@@ -16,11 +16,6 @@ public class Manager : MonoBehaviour
 
     public bool Win = false;
 
-    private void Update()
-    {
-        print(Score);
-        CountEnemies();
-    }
     private void Awake()
     {
         if (_Instance != null)
@@ -28,6 +23,11 @@ public class Manager : MonoBehaviour
             return;
         }
         _Instance = this;
+    }
+
+    private void Update()
+    {
+        CountEnemies();
     }
 
     public void AddScore(int score)
@@ -39,10 +39,16 @@ public class Manager : MonoBehaviour
     {
         if (player.GetComponent<PlayerMovement>()._health <= 0 )
         {
-
+            Death();
         }
         player.GetComponent<PlayerMovement>()._health -= damages;
-        print(player.GetComponent<PlayerMovement>()._health);
+    }
+
+    public void CountEnemies()
+    {
+        Enemy[] components = GameObject.FindObjectsOfType<Enemy>();
+        enemyCount = components.Length;
+        
     }
 
     public void Death()
@@ -55,10 +61,4 @@ public class Manager : MonoBehaviour
         Win = true;
     }
 
-    public void CountEnemies()
-    {
-        Enemy[] components = GameObject.FindObjectsOfType<Enemy>();
-        enemyCount = components.Length;
-        
-    }
 }

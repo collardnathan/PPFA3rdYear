@@ -23,13 +23,11 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        print("oui");
         if (other.tag == ("Bullet"))
         {
             rotationDone = false;
             Manager._Instance.AddScore(scoreHit);            
             Object.Destroy(other.gameObject);
-            print("Bullet");
             _currentHealth -= 10f;
             if (_currentHealth <= 0)
             {
@@ -42,7 +40,6 @@ public class Enemy : MonoBehaviour
         {
             rotationDone = false;
             Object.Destroy(other.gameObject);
-            print("Gravity");
             this.GetComponent<Rigidbody>().AddForce(this.transform.up * 200f, ForceMode.Force);
             SetGravity(GravityMode.G0);
             this.GetComponent<Rigidbody>().transform.Rotate(0, 1f, 1f);
