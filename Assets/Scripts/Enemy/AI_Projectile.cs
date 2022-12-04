@@ -22,7 +22,11 @@ public class AI_Projectile : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);        
+        transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+        if (targetPosition == transform.position)
+        {
+            Object.Destroy(gameObject, 0.0001f);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

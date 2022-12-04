@@ -472,7 +472,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7657080581285392212, guid: ce5ab67f2c4d27e46948ce505e670691, type: 3}
       propertyPath: minimumAttackDistance
-      value: 4
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7657080581285392212, guid: ce5ab67f2c4d27e46948ce505e670691, type: 3}
       propertyPath: patrolPoints.Array.size
@@ -480,7 +480,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7657080581285392212, guid: ce5ab67f2c4d27e46948ce505e670691, type: 3}
       propertyPath: minimumPatrolingDistance
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7657080581285392212, guid: ce5ab67f2c4d27e46948ce505e670691, type: 3}
       propertyPath: patrolPoints.Array.data[0]
@@ -1083,11 +1083,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6618266310757137121, guid: 246cd156d7512904b8499115f12b4381, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.026464963
+      value: -0.02646493
       objectReference: {fileID: 0}
     - target: {fileID: 6618266310757137121, guid: 246cd156d7512904b8499115f12b4381, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0034891423
+      value: -0.0034891376
       objectReference: {fileID: 0}
     - target: {fileID: 6618266310870233884, guid: 246cd156d7512904b8499115f12b4381, type: 3}
       propertyPath: m_LocalRotation.y

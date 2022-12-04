@@ -47,6 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6071a2fa162e9b248908cee195e3ef36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!54 &164425669928236926
 Rigidbody:
   m_ObjectHideFlags: 0
